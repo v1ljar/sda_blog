@@ -1,7 +1,6 @@
-from django.urls import path, include
-from .views import about
+from django.urls import path
+from .views import AboutView
 
 urlpatterns = [
-    path('', include('django.contrib.auth.urls')),
-    path('', about, name='about')
+    path('', AboutView.as_view(), name='about')
 ]
