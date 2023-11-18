@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Post
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User, Group
+from django.utils import timezone
 
 # Create your views here.
 
@@ -11,6 +12,22 @@ def all_posts(request):
     print(request.user)
 
     return render(request, "all_posts.html", context={"posts": posts})
+
+
+def longer_posts(request):
+    all_posts = Post.objects.all()
+
+    posts = [post for post in all_posts if len(post.body) > 300]
+
+    return render(request, "longer_posts.html", context={"posts": posts})
+
+
+@login_required
+def my_posts(request):
+    posts = Post.objects.filter(author=request.user)
+    print(request.user)
+
+    return render(request, "my_posts.html", context={"posts": posts})
 
 
 def post_detail(request, pk):
@@ -69,7 +86,8 @@ def create_post(request):
         author = request.user
         post = Post.objects.create(title=title,
                                    body=body,
-                                   author=author)
+                                   author=author,
+                                   updated_at=timezone.now())
         post.save()
 
         return redirect("home")

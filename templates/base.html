@@ -27,7 +27,13 @@
                 {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="/">Posts</a>
-                </li>                
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'my_posts' %}">My posts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'longers_posts' %}">Longer reads</a>
+                  </li>                                
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
@@ -35,6 +41,9 @@
                   <a class="nav-link" href="{% url 'about' %}">About</a>
               </li>
             {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'longer_posts' %}">Longer reads</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
